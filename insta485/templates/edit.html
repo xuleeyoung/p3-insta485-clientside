@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <style>
+        .logo {
+            color: black;
+            text-align: left;
+            margin-left: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+        .topright {
+            color: black;
+            text-align: right;
+            margin-right: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">Insta485</a>
+    </div>
+    <div class="topright">
+        <a href="/explore/">explore</a>
+        <a> | </a>
+        <a href="/users/{{ logname }}/">{{ logname }}</a>
+    </div>
+    <hr>
+
+
+    <img src="/uploads/{{ filename }}" alt="{{ logname }}">
+    <a href="/users/{{ logname }}/">{{ logname }}</a>
+
+    <form action="/accounts/?target=/accounts/edit/" method="post" enctype="multipart/form-data">
+        Photo<input type="file" name="file" accept="image/*"/><br>
+        Name<input type="text" name="fullname" value="{{ fullname }}" required/><br>
+        Email<input type="text" name="email" value="{{ email }}" required/><br>
+        <input type="submit" name="update" value="submit"/>
+        <input type="hidden" name="operation" value="edit_account"/>
+    </form>
+
+    <p>
+        <a href="/accounts/password/">Change Password</a>
+        <br>
+        <a href="/accounts/delete/">Delete account</a>
+    </p>
+    
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <style>
+        .logo {
+            color: black;
+            text-align: left;
+            margin-left: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+        .topright {
+            color: black;
+            text-align: right;
+            margin-right: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">Insta485</a>
+    </div>
+    <div class="topright">
+        <a href="/explore/">explore</a>
+        <a> | </a>
+        <a href="/users/{{ logname }}/">{{ logname }}</a>
+    </div>
+    <hr>
+
+    {% for post in posts %}
+        <div style="border-style: solid;">
+            <div class="logo">
+                <a href="/users/{{ post["owner"] }}/">
+                    <img class="user-image" src="/uploads/{{ post["owner_img_url"] }}" alt="{{ post["owner_img_url"] }}" style="width: 20%;">
+                    {{ post["owner"] }}
+                </a>
+            </div>
+            <div class="topright">
+                <a href="/posts/{{ post["postid"] }}/">{{ post["timestamp"] }}</a>
+            </div>
+
+            <div>
+                <img src="/uploads/{{ post["img_url"] }}" alt="/static/uploads/{{ post["img_url"] }}" style="align-content: center;">
+                <p>
+                    {% if post["likes"] == 1 %}
+                        1 like
+                    {% else %}
+                        {{ post["likes"] }} likes
+                    {% endif %}
+                </p>
+
+                {% for comment in post["comments"] %}
+                <a href="/users/{{ comment["owner"] }}/"><b>{{ comment["owner"] }}</b></a>
+                {{ comment["text"] }}
+                <br>
+                {% endfor %}
+                <br>
+            </div>
+            {% if logname not in post["likes_list"] %}
+            <form action="/likes/?target=/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="like"/>
+                <input type="hidden" name="postid" value="{{ post["postid"] }}"/>
+                <input type="submit" name="like" value="like"/>
+            </form>
+            {% else %}
+            <form action="/likes/?target=/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="unlike"/>
+                <input type="hidden" name="postid" value="{{ post["postid"] }}"/>
+                <input type="submit" name="unlike" value="unlike"/>
+            </form>
+            {% endif %}
+            <form action="/comments/?target=/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="create"/>
+                <input type="hidden" name="postid" value="{{ post["postid"] }}"/>
+                <input type="text" name="text" required/>
+                <input type="submit" name="comment" value="comment"/>
+            </form>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

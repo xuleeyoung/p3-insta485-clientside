@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <style>
+        .logo {
+            color: black;
+            text-align: left;
+            margin-left: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+        .topright {
+            color: black;
+            text-align: right;
+            margin-right: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">Insta485</a>
+    </div>
+    <div class="topright">
+        <a href="/accounts/login/">login</a>
+    </div>
+    <hr>
+
+    <form action="/accounts/?target=/" method="post" enctype="multipart/form-data">
+        Photo <input type="file" name="file" required/><br>
+        Name <input type="text" name="fullname" required/><br>
+        Username<input type="text" name="username" required/><br>
+        Email<input type="text" name="email" required/><br>
+        Password<input type="password" name="password" required/><br>
+        <input type="submit" name="signup" value="sign up"/>
+        <input type="hidden" name="operation" value="create"/>
+    </form>
+
+    <p>Have an account? 
+       <a href="/accounts/login/">Log in</a>
+    </p>
+    
+
+</body>
+</html>

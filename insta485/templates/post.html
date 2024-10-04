@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <style>
+        .logo {
+            color: black;
+            text-align: left;
+            margin-left: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+        .topright {
+            color: black;
+            text-align: right;
+            margin-right: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">Insta485</a>
+    </div>
+    <div class="topright">
+        <a href="/explore/">explore</a>
+        <a> | </a>
+        <a href="/users/{{ logname }}/">{{ logname }}</a>
+    </div>
+    <hr>
+
+
+    <div style="border-style: solid;">
+        <div class="logo">
+            <a href="/users/{{ owner }}/">
+                <img class="user-image" src="/uploads/{{ owner_img_url }}" alt="{{ owner_img_url }}" style="width: 20%;">
+                {{ owner }}
+            </a>
+        </div>
+        <div class="topright">
+            <a href="/posts/{{ postid }}/">{{ timestamp }}</a>
+        </div>
+
+        <div>
+            <img src="/uploads/{{ img_url }}" alt="/uploads/{{ img_url }}" style="align-content: center;">
+            <p>
+                {% if likes == 1 %}
+                    1 like
+                {% else %}
+                    {{ likes }} likes
+                {% endif %}
+            </p>
+
+            {% for comment in comments %}
+            <a href="/users/{{ comment["owner"] }}/"><b>{{ comment["owner"] }}</b></a>
+            {{ comment["text"] }}
+            {% if comment["owner"] == logname %}
+            <form action="/comments/?target=/posts/{{ postid }}/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="delete"/>
+                <input type="hidden" name="commentid" value="{{ comment["commentid"] }}"/>
+                <input type="submit" name="uncomment" value="delete"/>
+              </form>
+            {% endif %}
+            <br>
+            {% endfor %}
+            <br>
+            {% if logname not in like_list %}
+            <form action="/likes/?target=/posts/{{ postid }}/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="like"/>
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="submit" name="like" value="like"/>
+            </form>
+            {% else %}
+            <form action="/likes/?target=/posts/{{ postid }}/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="unlike"/>
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="submit" name="unlike" value="unlike"/>
+            </form>
+            {% endif %}
+            <form action="/comments/?target=/posts/{{ postid }}/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="create"/>
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="text" name="text" required/>
+                <input type="submit" name="comment" value="comment"/>
+            </form>
+            {% if logname == owner %}
+            <form action="/posts/?target=/users/{{ logname }}/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="operation" value="delete"/>
+                <input type="hidden" name="postid" value="{{ postid }}"/>
+                <input type="submit" name="delete" value="delete this post"/>
+              </form>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

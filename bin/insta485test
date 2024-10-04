@@ -1,0 +1,11 @@
+#!/bin/bash
+# insta485run
+
+
+set -Eeuo pipefail
+
+pycodestyle insta485
+pydocstyle insta485
+pylint insta485
+
+pytest -v tests/app_tests

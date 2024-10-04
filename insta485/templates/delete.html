@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <style>
+        .logo {
+            color: black;
+            text-align: left;
+            margin-left: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+        .topright {
+            color: black;
+            text-align: right;
+            margin-right: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">Insta485</a>
+    </div>
+    <div class="topright">
+        <a href="/explore/">explore</a>
+        <a> | </a>
+        <a href="/users/{{ logname }}/">{{ logname }}</a>
+    </div>
+    <hr>
+
+    <form action="/accounts/?target=/accounts/login/" method="post" enctype="multipart/form-data">
+        <input type="submit" name="delete" value="confirm delete account"/>
+        <input type="hidden" name="operation" value="delete"/>
+    </form>
+    
+
+</body>
+</html>

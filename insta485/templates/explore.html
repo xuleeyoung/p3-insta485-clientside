@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>insta485</title>
+    <style>
+        .logo {
+            color: black;
+            text-align: left;
+            margin-left: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+        .topright {
+            color: black;
+            text-align: right;
+            margin-right: 100px;
+            width: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">Insta485</a>
+    </div>
+    <div class="topright">
+        <a href="/explore/">explore</a>
+        <a> | </a>
+        <a href="/users/{{ logname }}/">{{ logname }}</a>
+    </div>
+    <hr>
+
+    <h1>Discover People</h1>
+
+
+    {% for follower in not_following %}
+    <img src="/uploads/{{ follower["user_img_url"] }}" alt="{{ follower["user_img_url"] }}">
+    <a href="/users/{{ follower["username"] }}/">{{ follower["username"] }}</a>
+    <form action="/following/?target=/explore/" method="post" enctype="multipart/form-data">
+        <input type="submit" name="follow" value="follow"/>
+        <input type="hidden" name="username" value="{{ follower["username"] }}"/>
+        <input type="hidden" name="operation" value="follow"/>
+      </form>      
+    {% endfor %}
+
+</body>
+</html>

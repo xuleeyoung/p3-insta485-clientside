@@ -1,0 +1,14 @@
+#!/bin/bash
+# insta485run
+
+
+set -Eeuo pipefail
+
+if [ -e var/insta485.sqlite3 ]
+then
+    flask --app insta485 --debug run --host 0.0.0.0 --port 8000
+else
+    echo "Error: can't find database var/insta485.sqlite3"
+    echo "Try: ./bin/insta485db create"
+    exit 1
+fi
