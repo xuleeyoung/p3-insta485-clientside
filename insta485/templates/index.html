@@ -80,6 +80,10 @@
             </form>
         </div>
     {% endfor %}
-
+    <div id="reactEntry">
+        Loading ...
+      </div>
+      <!-- Load JavaScript -->
+      <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
 </body>
 </html>
